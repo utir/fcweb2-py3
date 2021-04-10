@@ -1,4 +1,4 @@
-api_key = 'AIzaSyCHbUeQLgUxniHqyWtEUZ2eTJ4mvs5-nqY'
+api_key = 'INSERT YOUR KEY'
 
 import numpy as np
 
