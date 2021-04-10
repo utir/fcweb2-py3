@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Claim Checker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel=stylesheet type=text/css href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <script src="https://use.fontawesome.com/6f35c618a4.js"></script>
+    <script type="text/javascript"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css">
+
+    <script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $("#mytable").tablesorter({
+                    headers: {2: {sorter: false}, 3: {sorter: false}}
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+<h2 style="position: relative; color: #BF5700; text-align: center; margin-top: 50px; ">Claim: "Some Story your Friend
+    told you about"</h2>
+<p style="position: relative; color: #BF5700; text-align: center; margin-top: 50px; ">(Click or hover over <i
+        class="glyphicon glyphicon-question-sign"></i> for help )</p>
+
+
+
+
+
+
+
+<div class="container" id="vera">
+
+
+    <div style="background-color: white;border-style: solid">
+        <h2 style="position: relative; color: #BF5700; text-align: center; margin-top: 10px; "> Predicted Correctness <a
+                href="#" title="Predicted Correctness" data-toggle="popover" data-trigger="focus hover"
+                data-content="Based on the above articles (with their stances and source reputation), we predict the correctness of the claim"><i
+                class="glyphicon glyphicon-question-sign"></i></a></h2>
+        <br>
+        <div class="progress" id="progress">
+            <div id="vera_true" class="progress-bar progress-bar-success" role="progressbar"
+                 style="color: #B5700; width:0%">
+                <p style="color: #ffffff" title="True" data-toggle="popover" data-trigger="focus hover"
+                   data-placement="top" data-content="True">True</p>
+            </div>
+            <div id="vera_false" class="progress-bar progress-bar-danger" role="progressbar"
+                 style="color: #BF5700; width:0%">
+                <p style="color: #ffffff" title="False" data-toggle="popover" data-trigger="focus hover"
+                   data-placement="top" data-content="False">False</p>
+            </div>
+        </div>
+
+        <br>
+        <div id="bias-div" class="bias-div">
+            <h2 style="position: relative; color: #BF5700; text-align: center; margin-top: 10px; ">Overall Political
+                Leaning<a
+                        href="#" title="Estimated Bias" data-toggle="popover" data-trigger="focus hover"
+                        data-content="Based on the user's interaction with the source reputation, we estimate the political bias of the user and vice versa"><i
+                        class="glyphicon glyphicon-question-sign"></i></a></h2>
+            <br>
+            <table width="100%">
+                <tbody>
+                <tr>
+                    <td style="position: relative; color: #BF5700;">Liberal</td>
+                    <td style="position: relative; color: #BF5700; text-align:right">Conservative</td>
+                </tr>
+                </tbody>
+            </table>
+            <input id="bias-slider" class="bias-slider" disabled="disabled"  type="range" min='-1' max='1' step='0.01'
+                   value='0'>
+        </div>
+        <br>
+
+    </div>
+</div>
+
+<!--- Body section of the task --->
+<div class="container">
+
+    <h2 style="position: relative; color: #BF5700; text-align: center; margin-top: 50px; ">Source Information <a
+            href="#" title="Source Information" data-toggle="popover" data-trigger="focus hover"
+            data-content="We put the claim into Google to find these articles"><i
+            class="glyphicon glyphicon-question-sign"></i></a></h2>
+    <table class="table" style="margin-top: 50px" id="mytable">
+        <thead>
+        <tr>
+            <th class="col-md-1" style="color: #BF5700">News Source <a href="#" title="Source" data-toggle="popover"
+                                                                       data-trigger="focus hover"
+                                                                       data-content="The website that publishes the article"><i
+                    class="glyphicon glyphicon-question-sign"></i></a></th>
+            <th class="col-md-1" style="color: #BF5700">Source Political Leaning <a href="#" title="Source Bias"
+                                                                                    data-toggle="popover"
+                                                                                    data-trigger="focus hover"
+                                                                                    data-content="We predicted the bias of the source (left means Liberal, middle means Neutral, right means high Conservative, click to sort)"><i
+                    class="glyphicon glyphicon-question-sign"></i></a></th>
+            <th class="col-md-1" style="color: #BF5700">Source Reputation <a href="#" title="Predicted Reputation"
+                                                                             data-toggle="popover"
+                                                                             data-trigger="focus hover"
+                                                                             data-content="We predict the reputation of the source (left means low, middle means unknown, right means high reputation, click to sort)"><i
+                    class="glyphicon glyphicon-question-sign"></i></a></th>
+            <th class="col-md-1" style="color: #BF5700">Deny/Neutral/Support<a href="#" title="Predicted Stance"
+                                                                               data-toggle="popover"
+                                                                               data-trigger="focus hover"
+                                                                               data-content="We predict if the article denies/supports the claim (left means deny, middle means neutral, right means support, click to sort)"><i
+                    class="glyphicon glyphicon-question-sign"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        
+            <tr>
+                <td>
+                    abc.com
+                </td>
+                <td>
+                    <div>
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    Liberal
+                                </td>
+                                <td style="text-align: right;">
+                                    Conservative
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="range" min="-1" max="1" step="0.1" value="1.0"
+                           disabled="disabled" class="abc-bias-value"
+                           id="0-bias-value">
+
+                </td>
+                <td>
+                    <div style="display:none;" id="textrep0">0.0</div>
+                    <input type="range" min="0" max="1" step="0.25" value="0.0"
+                           class="reputation-slides abc-rep-value"
+                           id="sliderep0">
+                </td>
+                <td>
+                    <input type="range" min="-1" max="1" step="1" disabled="disabled"
+                           value="0"
+                           class="abc-stance-value"
+                           id="slidestance0">
+                </td>
+            </tr>
+        
+            <tr>
+                <td>
+                    lion.com
+                </td>
+                <td>
+                    <div>
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    Liberal
+                                </td>
+                                <td style="text-align: right;">
+                                    Conservative
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="range" min="-1" max="1" step="0.1" value="0.5"
+                           disabled="disabled" class="lion-bias-value"
+                           id="1-bias-value">
+
+                </td>
+                <td>
+                    <div style="display:none;" id="textrep1">0.75</div>
+                    <input type="range" min="0" max="1" step="0.25" value="0.75"
+                           class="reputation-slides lion-rep-value"
+                           id="sliderep1">
+                </td>
+                <td>
+                    <input type="range" min="-1" max="1" step="1" disabled="disabled"
+                           value="1"
+                           class="lion-stance-value"
+                           id="slidestance1">
+                </td>
+            </tr>
+        
+            <tr>
+                <td>
+                    xyz.com
+                </td>
+                <td>
+                    <div>
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    Liberal
+                                </td>
+                                <td style="text-align: right;">
+                                    Conservative
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="range" min="-1" max="1" step="0.1" value="-0.5"
+                           disabled="disabled" class="xyz-bias-value"
+                           id="2-bias-value">
+
+                </td>
+                <td>
+                    <div style="display:none;" id="textrep2">1.0</div>
+                    <input type="range" min="0" max="1" step="0.25" value="1.0"
+                           class="reputation-slides xyz-rep-value"
+                           id="sliderep2">
+                </td>
+                <td>
+                    <input type="range" min="-1" max="1" step="1" disabled="disabled"
+                           value="1"
+                           class="xyz-stance-value"
+                           id="slidestance2">
+                </td>
+            </tr>
+        
+            <tr>
+                <td>
+                    politexas.com
+                </td>
+                <td>
+                    <div>
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    Liberal
+                                </td>
+                                <td style="text-align: right;">
+                                    Conservative
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="range" min="-1" max="1" step="0.1" value="-1.0"
+                           disabled="disabled" class="politexas-bias-value"
+                           id="3-bias-value">
+
+                </td>
+                <td>
+                    <div style="display:none;" id="textrep3">0.5</div>
+                    <input type="range" min="0" max="1" step="0.25" value="0.5"
+                           class="reputation-slides politexas-rep-value"
+                           id="sliderep3">
+                </td>
+                <td>
+                    <input type="range" min="-1" max="1" step="1" disabled="disabled"
+                           value="-1"
+                           class="politexas-stance-value"
+                           id="slidestance3">
+                </td>
+            </tr>
+        
+            <tr>
+                <td>
+                    usp.com
+                </td>
+                <td>
+                    <div>
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    Liberal
+                                </td>
+                                <td style="text-align: right;">
+                                    Conservative
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="range" min="-1" max="1" step="0.1" value="0.0"
+                           disabled="disabled" class="usp-bias-value"
+                           id="4-bias-value">
+
+                </td>
+                <td>
+                    <div style="display:none;" id="textrep4">0.25</div>
+                    <input type="range" min="0" max="1" step="0.25" value="0.25"
+                           class="reputation-slides usp-rep-value"
+                           id="sliderep4">
+                </td>
+                <td>
+                    <input type="range" min="-1" max="1" step="1" disabled="disabled"
+                           value="0"
+                           class="usp-stance-value"
+                           id="slidestance4">
+                </td>
+            </tr>
+        
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+            $('.progress').popover({
+                html: true,
+                content: function () {
+                    return
+                }
+            })
+        });
+
+        var default_reps = [0.0, 0.75, 1.0, 0.5, 0.25];
+        for (let i = 0; i < 5; i++) {
+            $("#sourcerep" + i).on('click', function (event) {
+                document.getElementById("sliderep" + i).value = default_reps[i];
+                recalculate_veracity();
+
+                // ##################
+                calculate_bias();
+            });
+        }
+
+        function recalculate_veracity() {
+            eval_vera();
+        }
+
+
+        // get result variables
+        var stances = [0, 1, 1, -1, 0];
+        var predicted_stances = [0, 1, 1, -1, 0];
+        var rep = [0.0, 0.75, 1.0, 0.5, 0.25];
+        var init_rep = [0.0, 0.75, 1.0, 0.5, 0.25];
+        var n = 5;
+        var init_vera = [77.72998611746912, 22.270013882530876];
+        var score = 0;
+        var p = 0;
+        var sourcebias = [1.0, 0.5, -0.5, -1.0, 0.0];
+
+
+        function eval_vera() {
+
+            score = 0;
+            for (i = 0; i < n; i++) {
+                score += rep[i] * stances[i];
+            }
+
+            p = 100 * Math.exp(score) / (1 + Math.exp(score))
+            console.log("veracity: ", p)
+            document.getElementById("vera_false").style = "color: #BF5700; width:" + (100 - p) + "%";
+            document.getElementById("vera_true").style = "color: #BF5700; width:" + p + "%";
+
+        }
+
+        eval_vera();
+        slider = new Array(n);
+        textreps = new Array(n);
+
+        slidestance = new Array(n);
+        
+
+
+        for (i = 0; i < n; i++) {
+            slider[i] = document.getElementById("sliderep" + i);
+            slider[i].i = i;
+            textreps[i] = document.getElementById("textrep" + i)
+            //textreps[i].i = i
+            slider[i].oninput = function () {
+                //output.innerHTML = this.value;
+                rep[this.i] = this.value;
+                textreps[this.i].innerHTML = this.value
+                eval_vera();
+
+                // ###############
+                calculate_bias();
+                $("#mytable").trigger("update");
+            };
+            // stance sliders
+
+            slidestance[i] = document.getElementById("slidestance" + i);
+            slidestance[i].i = i;
+            
+            //textreps[i].i = i
+            slidestance[i].oninput = function () {
+                //output.innerHTML = this.value;
+                stances[this.i] = this.value;
+                
+                eval_vera();
+
+                // ###############
+                calculate_bias()
+                $("#mytable").trigger("update");
+            }
+
+
+        }
+
+        function set_color(elems, color) {
+            for (var i = 0; i < elems.length; i++) {
+                elems.item(i).style["background-color"] = color;
+            }
+        }
+
+        function calculate_bias() {
+            let bias_score = 0;
+            let delta_bias_score = 0
+            let delta_rep = 0;
+            for (i = 0; i < n; i++) {
+                if (init_rep[i] != rep[i]) {
+                    console.log("rep changed for: ", i);
+                    delta_rep = rep[i] - init_rep[i];
+
+                    
+                    
+                    
+                    
+                    
+
+                    init_rep[i] = rep[i];
+
+
+                    delta_bias_score = delta_rep * sourcebias[i];
+                    bias_score = parseFloat($("#bias-slider").val());
+                    bias_score = bias_score + delta_bias_score;
+
+
+                    document.getElementById("bias-slider").value = bias_score;
+                    console.log("bias score:", bias_score)
+                    break;
+                }
+            }
+        }
+
+        let init_bias = $("#bias-slider").val();
+        $("#bias-slider").mouseup(function () {
+            console.log($("#bias-slider").val());
+            let bias_value = $("#bias-slider").val();
+            let delta_bias = bias_value - init_bias;
+            init_bias = bias_value;
+            for (i = 0; i < n; i++) {
+                rep[i] = rep[i] + delta_bias * sourcebias[i];
+                console.log(rep[i]);
+                document.getElementById("sliderep" + i).value = rep[i];
+            }
+        });
+    </script>
+
+
+</body>
+
+<style type='text/css'>
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  color: black;
+  font-size: 14px;
+  line-height: 22px;
+  margin: 0 0 100px;
+}
+p {
+  font-size: 16px;
+}
+nav {
+  position: absolute;
+  right: 20px;
+  top: 40px;
+  display: block;
+  color: white;
+}
+header {
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  height: 100px;
+  background-color: #382E2C;
+}
+footer {
+  color: white;
+  background-color: #382E2C;
+  font-size: 16px;
+  font-weight: 300;
+  font-weight: 100;
+  padding-bottom: 20px;
+  height: 100px;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+footer p {
+  width: 80%;
+  font-size: 12px;
+  line-height: 18px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-weight: medium;
+}
+nav a:link, nav a:active, nav a:visited {
+  color: white;
+  font-size: 24px;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+.affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+.affix + .container {
+    padding-top: 70px;
+}
+
+.bias-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: rgb(9,60,121);
+    background: linear-gradient(90deg, rgba(9,60,121,1) 0%, rgba(230,3,3,1) 100%);
+    border-radius: 10px;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.bias-slider:hover {
+    opacity: 1;
+}
+
+.bias-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #ccc;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,.5);
+}
+
+.bias-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #ccc;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px 5px rgba(0,0,0,.2);
+}
+
+
+.iframe-container {
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+}
+
+.iframe-container iframe {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.examples {
+  width: 600px;
+  padding: 10px;
+  max-width: 95%;
+  border-radius: 4px;
+  margin: 0px auto;
+}
+ul {
+  list-style: none;
+}
+.submit {
+  min-width: 400px;
+  padding-top: 40px;
+}
+.searchbox {
+  width: 600px;
+  max-width: 95%;
+  height: 40px;
+  display: block;
+  text-indent: 30px;
+  margin: 0 auto;
+  font-size: 16px;
+  box-shadow: 0 8px 6px 6px black;
+}
+.submit-button {
+  background-color: #BF5700;
+  color: white;
+  font-size:12pt;
+  border: 0px;
+  border-radius: 2px;
+  padding: 5px;
+}
+.buttons {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 75px;
+}
+.disclaimer {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80%;
+  margin-top: 50px;
+}
+.navbar-inverse {
+  background-color: #ffffff;
+  border-color: #000000;
+}
+a {
+    /*color: #BF5700;*/
+    color: black;
+    text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+h1 {
+  color: #BF5700;
+  text-align: center;
+  margin-top: 175px;
+  margin-bottom: 0px;
+  font-size: 50px;
+  line-height: 50px;
+}
+h2 {
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 10px;
+}
+
+/*code {
+  font-family: 'Consolas', monospace;
+  font-size: 12px;
+  background-color: #f9f9f9;
+  border: 1px solid #D0D0D0;
+  color: #002166;
+  display: block;
+  padding: 12px 10px 12px 10px;
+}
+/* Form Styles
+form label{
+    display: block;
+    margin-bottom: 5px;
+}
+*/
+form input[type=text]{
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    box-sizing: border-box;
+#   width: 95%;
+#   font-size:24px;
+    padding: 1px;
+    margin-bottom: 20px;
+#   outline: 0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+form input[type=submit]{
+    background: #BF5700;
+    color: #fff;
+    display: inline-block;
+    padding: 8px 20px;
+    margin-top: 0px;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: inset 0 -1px 0 rgba(0,0,0,.1);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.1);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-transform: capitalize;
+    border: 0;
+    cursor: pointer;
+    text-align: center;
+}
+@media (min-width: 1px)
+  and (max-width: 700px) {
+    h1 { margin-top: 150px; margin-bottom: 0px; }
+    .samples { margin: 0px; max-width: 90%; }
+    .searchbox { margin-left: auto; margin-right: auto;}
+    .submit { margin-top: 30px; }
+    .samples { margin-top: 0px; }
+    div .likert-scale { width: 95%; }
+    footer p {width:95%;font-size:12px;line-height:12px;}
+}
+form .statement {
+  display:block;
+  font-size: 16px;
+  padding: 10px 0 0 4.25%;
+  margin-bottom:10px;
+  text-align: center;
+}
+form .likert {
+  list-style:none;
+  width:100%;
+  margin:0;
+  padding:0 0 35px;
+  display:block;
+  border-bottom:2px solid #efefef;
+}
+div .likert-scale {
+  margin-left:auto;
+  margin-right:auto;
+}
+form .likert:last-of-type {border-bottom:0;}
+form .likert:before {
+  content: '';
+  position:relative;
+  top:11px;
+  left:9.5%;
+  display:block;
+  background-color:#efefef;
+  height:4px;
+  width:77%;
+}
+form .likert li {
+  display:inline-block;
+  width:19%;
+  text-align:center;
+  vertical-align: top;
+}
+form .likert li input[type=radio] {
+  display:block;
+  position:relative;
+  top:0;
+  left:50%;
+  margin-left:-6px;
+}
+form .likert li label {width:100%;}
+form .buttons {
+  padding:10 10;
+  text-align: center;
+}
+form .buttons button {
+  padding: 10px 10px;
+  background-color: #BF5700;
+  border: 0;
+  border-radius: 3px;
+  font-size: 16px;
+  color: white;
+}
+
+.slider.slider-horizontal {
+  width: 100px !important;
+}
+</style>
+</html>

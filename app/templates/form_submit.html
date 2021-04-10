@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title>Claim Checker</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <script src="https://use.fontawesome.com/6f35c618a4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript"></script>
+</head>
+<body>
+  <script>
+    $(document).ready(function(){
+      if (window.location.search.includes('error')) {
+        $('#errors').show();
+        $('#errors').text('Error: Please enter a claim');
+      }
+    });
+
+  </script>
+  <h1>Claim Checker</h1>
+  <h2>A Research Prototype</h2>
+  <header>
+  <nav>
+    <a href="/#"><i class="fa fa-home" aria-hidden="true" style="color:#BF5700"></i>&nbsp;Home</a>
+    <a href="/about/"><i class="fa fa-info-circle" aria-hidden="true" style="color:#BF5700"></i>&nbsp;About</a>
+  </nav>
+  </header>
+      <p style="text-align:center;">Enter a Claim</p>
+      {% if error %}
+      <p style="text-align:center; color: #f00;">{{ error }}</p>
+      {% endif %}
+      <form method="post" action="{{ url_for('results') }}">
+        <input type="text" class="searchbox" name='claim' id='claim'>
+        <p id='errors' style='text-align: center; color: #f00; font-size: 14px; display: none'></p>
+    <div class="buttons">
+          <input type="submit" name = "button" value="Check Claim" class="submit-button">
+          <input type="submit" name = "button" value="Try a Random Claim" class="submit-button">
+    </div>
+      </form>
+    <div class="examples">
+      <p>Example Claims:</p>
+      <ul>
+        <li>
+          <a href="#" onclick="document.getElementById('claim').value='Tiger Woods is serving a suspension from the PGA Tour after failing a drug test';">Tiger Woods is serving a suspension from the PGA Tour after failing a drug test</a>
+        </li>
+        <li>
+          <a href="#" onclick="document.getElementById('claim').value='There is a case of Ebola in Kansas City';">There is a case of Ebola in Kansas City</a>
+        </li>
+        <li>
+          <a href="#" onclick="document.getElementById('claim').value='The police officer leading the Charlie Hebdo investigation committed suicide';">The police officer leading the Charlie Hebdo investigation committed suicide</a>
+        </li>
+        <li>
+          <a href="#" onclick="document.getElementById('claim').value='A 5-year-old boy was invoiced for missing a birthday party';">A 5-year-old boy was invoiced for missing a birthday party</a>
+        </li>
+        <li>
+          <a href="#" onclick="document.getElementById('claim').value='The Indian government fired an employee who hadn\'t been to work in 24 years';">The Indian government fired an employee who hadn't been to work in 24 years</a>
+        </li>
+      </ul>
+    </div>
+  <footer>
+      <p style="/* font-size: 20px; *//* line-height: 25px; */">
+          <strong>
+              Important Disclaimer: This is a research prototype, shared online only to demonstrate a potential
+              user-interface and transparent AI model framework for explainable fact-checking.
+          </strong>
+            <br/>
+          The results provided by this research prototype may be incorrect, and users are encouraged to consult other
+          resources and services to meet their trusted fact-checking needs.
+      </p>
+      <!--p>This tool is a research prototype and is provided without warranty.</p-->
+  </footer>
+</body>
+</html>

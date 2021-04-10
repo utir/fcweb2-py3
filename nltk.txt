@@ -1,0 +1,5 @@
+stopwords
+punkt
+conll2002
+wordnet
+maxent_treebank_pos_tagger

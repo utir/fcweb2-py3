@@ -1,0 +1,177 @@
+(lp0
+(S'Saudi Arabia has a new law that can force women to cover up their tempting eyes'
+p1
+S'false'
+p2
+tp3
+a(S'Tiger Woods is serving a suspension from the PGA Tour after failing a drug test'
+p4
+S'false'
+p5
+tp6
+a(S'The Apple Watch will ship by the end of March'
+p7
+S'false'
+p8
+tp9
+a(S'Doctors confirmed the first case of death by genetically modified food'
+p10
+S'false'
+p11
+tp12
+a(S'The attacker shot and killed on Parliament Hill is named Michael Zehaf-Bibeau'
+p13
+S'true'
+p14
+tp15
+a(S'Apple will not reveal the iTunes subscription service based on Beats Music at the March 9th Spring Forward Event'
+p16
+S'true'
+p17
+tp18
+a(S'A grenade was found in a safe in Bromley, England'
+p19
+S'true'
+p20
+tp21
+a(S'Durex is launching a pumpkin spice condom'
+p22
+S'false'
+p23
+tp24
+a(S'Some ISIS fighters have contracted Ebola'
+p25
+S'false'
+p26
+tp27
+a(S'HBO Now streaming subscription is coming to Apple TV'
+p28
+S'true'
+p29
+tp30
+a(S'Apple will announce a 12-inch MacBook Air Retina at the March 9th Spring Forward Event'
+p31
+S'true'
+p32
+tp33
+a(S'American hostage Luke Somers was killed during a rescue attempt'
+p34
+S'true'
+p35
+tp36
+a(S'Someone vandalized a Bugatti sportscar with a penis drawing'
+p37
+S'false'
+p38
+tp39
+a(S'Photos comparing school lunches from around the world include a meagre offering from the U.S.'
+p40
+S'false'
+p41
+tp42
+a(S'Apple delayed production of a 12-inch iPad Pro and will not announce it at the March 9th event'
+p43
+S'true'
+p44
+tp45
+a(S'Cosby Show actress Raven Symone accused Bill Cosby of rape'
+p46
+S'false'
+p47
+tp48
+a(S'Elon University has banned use of the term freshman'
+p49
+S'false'
+p50
+tp51
+a(S'A photo shows Vladimir Putin traveled in a penis-shaped motorcade'
+p52
+S'false'
+p53
+tp54
+a(S'A historian discovered a text with an account of a miracle performed by Jesus'
+p55
+S'false'
+p56
+tp57
+a(S'There is a case of Ebola in Kansas City'
+p58
+S'false'
+p59
+tp60
+a(S'White House fence-jumper made it inside the main floor'
+p61
+S'true'
+p62
+tp63
+a(S'Google will purchase roughly half of Pacific Shores office park'
+p64
+S'true'
+p65
+tp66
+a(S'The Nigerian government and Boko Haram have reached a ceasefire agreement'
+p67
+S'false'
+p68
+tp69
+a(S'A Chinese man ended up with a tapeworm after eating Sashimi'
+p70
+S'false'
+p71
+tp72
+a(S'Journalist Matt Taibbi has left First Look Media'
+p73
+S'true'
+p74
+tp75
+a(S'North Dakota named a landfill after President Obama'
+p76
+S'false'
+p77
+tp78
+a(S'The police officer leading the Charlie Hebdo investigation committed suicide'
+p79
+S'false'
+p80
+tp81
+a(S'A hermaphrodite cat in Newfoundland is getting gender assignment surgery'
+p82
+S'true'
+p83
+tp84
+a(S"A widower heard his dead wife's voice again after a company managed to recover a deleted voicemail recording"
+p85
+S'true'
+p86
+tp87
+a(S'Cesar Milln, the Dog Whisperer, has died'
+p88
+S'false'
+p89
+tp90
+a(S'A 5-year-old boy was invoiced for missing a birthday party'
+p91
+S'true'
+p92
+tp93
+a(S'Man hospitalized after winning eggnog-chugging contest.'
+p94
+S'true'
+p95
+tp96
+a(S'The stainless steel Apple Watch will be priced between 499 and 549 USD'
+p97
+S'true'
+p98
+tp99
+a(S'Guns N Roses signer Axel Rose is dead'
+p100
+S'false'
+p101
+tp102
+a(S"The Indian government fired an employee who hadn't been to work in 24 years"
+p103
+S'true'
+p104
+tp105
+a.

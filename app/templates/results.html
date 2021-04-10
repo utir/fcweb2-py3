@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Claim Checker</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+  <script src="https://use.fontawesome.com/6f35c618a4.js"></script>
+  <script type="text/javascript"></script>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css">
+
+  <script type="text/javascript" src="{{ url_for('static', filename='jquery.tablesorter.min.js') }}"></script>
+  <script>
+  $(document).ready(function(){
+    $(function(){
+      $("#mytable").tablesorter({
+          headers: { 2: { sorter: false}, 3: { sorter: false}     }
+      });
+            });
+          });
+  </script>
+
+
+<style>
+  .affix {
+      top: 0;
+      width: 100%;
+      /*width: 100%;*/
+      z-index: 9999;
+  }
+
+  .affix + .container {
+      padding-top: 70px;
+  }
+  </style>
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.min.css">
+
+
+</head>
+<body>
+
+<header>
+<nav>
+<a href="/#"><i class="fa fa-home" aria-hidden="true" style="color:#BF5700"></i>&nbsp;Home</a>
+<a href="/about/"><i class="fa fa-info-circle" aria-hidden="true" style="color:#BF5700"></i>&nbsp;About</a>
+</nav>
+</header>
+<h1>Claim Checker</h1>
+<h2 style="position: relative; color: #BF5700; text-align: center; margin-top: 50px; ">Claim: "{{claim}}"</h2>
+<p style="position: relative; color: #BF5700; text-align: center; margin-top: 50px; ">(Click or hover over <i class="glyphicon glyphicon-question-sign"></i> for help )</p>
+
+
+<!-- The below code is creating popover windows on the predicted correctness bar.
+TODO:
+1. change the color. Currently, the text in the popovers is black.
+
+2. Right now, its only displaying hello. Need to obtain the appropriate number to display
+-->
+<div class="container" data-spy="affix" data-offset-top="350" id="vera">
+
+<div style="background-color: white;border-style: solid">
+        <h2 style="position: relative; color: #BF5700; text-align: center; margin-top: 10px; "> Predicted Correctness <a href="#" title="Predicted Correctness" data-toggle="popover"  data-trigger="focus hover" data-content="Based on the above articles (with their stances and source reputation), we predict the correctness of the claim"><i class="glyphicon glyphicon-question-sign"></i></a> </h2>
+        <br>
+        <div class="progress" id="progress">
+              <div id = "vera_false" class="progress-bar progress-bar-warning" role="progressbar" style="color: #BF5700; width:0%">
+                  <p style="color: #ffffff" title="False" data-toggle="popover" data-trigger="focus hover" data-placement = "top" data-content="False">False</p>
+              </div>
+              <div id = "vera_true" class="progress-bar progress-bar-success" role="progressbar" style="color: #B5700; width:0%">
+                  <p style="color: #ffffff" title = "True" data-toggle="popover" data-trigger="focus hover" data-placement = "top" data-content="True">True</p>
+              </div>
+      </div>
+
+</div>
+</div>
+
+<div class="container">
+
+<h2 style="position: relative; color: #BF5700; text-align: center; margin-top: 50px; ">Relevant Articles <a href="#" title="Relevant Articles" data-toggle="popover" data-trigger="focus hover" data-content="We put the claim into Google to find these articles"><i class="glyphicon glyphicon-question-sign"></i></a> </h2>
+{% if error %}
+<p style='position: relative; color: #BF5700; text-align: center; margin-top: 20px;'><strong><u>Warning:</u></strong> {{ error }}</p>
+{% endif %}
+
+  <table class="table" style="margin-top: 50px" id="mytable">
+    <thead>
+      <tr>
+        <th class="col-md-1" style="color: black">Source <a href="#" title="Source" data-toggle="popover" data-trigger="focus hover" data-content="The website that publishes the article"><i class="glyphicon glyphicon-question-sign"></i></a> </th>
+        <th class="col-md-1" style="color: black">Predicted Reputation <a href="#" title="Predicted Reputation" data-toggle="popover" data-trigger="focus hover" data-content="We predict the reputation of the source (left means low, middle means unknown, right means high reputation, click to sort)"><i class="glyphicon glyphicon-question-sign"></i></a> </th>
+        <th class="col-md-3" style="color: black"> 
+            Headline (<button id="keywords" type="button" class="btn btn-link" style="padding: 0px 0px">Key words</button>
+            <a href="#" title="Key words" data-toggle="popover" data-trigger="focus hover" data-content="Click to show the key words, colored by the Deny/Neutral/Support "><i class="glyphicon glyphicon-question-sign"></i></a>)
+        </th>
+        <th class="col-md-1" style="color: black">
+          <button onclick="switch_stance_all({{i}})" class ="label_type" id="but_stance_all"> <i id="stanceicon_all" class="material-icons" style="font-size:18px" > android </i> </button>
+          <span style="background-color:#fdae61">Deny</span>/<span style="background-color:#ffffbf">Neutral</span>/<span style="background-color:#abd9e9">Support</span>
+          <a href="#" title="Predicted Stance" data-toggle="popover" data-trigger="focus hover" data-content="We predict if the article denies/supports the claim (left means deny, middle means neutral, right means support, click to sort)"><i class="glyphicon glyphicon-question-sign"></i></a> </th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i  in range(0,n) %}
+        <tr>
+            <td>
+          <a href="/source_page/?source={{sources[i]}}">{{ sources[i] }}</a>
+        </td>
+        <td>
+
+            <div style="display:none;" id="textrep{{i}}">{{rep[i]}}</div>
+            <input type="range" min="-1" max="1" step="0.1" value="{{rep[i]}}" class="slider" id="sliderep{{i}}">
+
+        </td>
+            <td>  <a href={{urls[i]}} target="_blank" > {{ headlines[i] }} </a> </td>
+
+        <td style="white-space: nowrap">
+                <div style="display:none;" id="textstance{{i}}">{{stances[i]}}</div>
+                <button onclick="switch_stance({{i}})" class ="label_type" id="but_stance{{i}}"> <i id="stanceicon{{i}}" class="material-icons" style="font-size:18px" > android</i> </button>
+                <input type="range" style="display:inline" min="-1" max="1" step="0.1" value="{{stances[i]}}" class="slider" id="slidestance{{i}}">
+        </td>
+
+
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+
+<br>
+<br>
+
+
+<form action="/#">
+    <div class="buttons">
+        <button class="submitter">Check another claim</button>
+    </div>
+</form>
+
+
+
+</div>
+
+
+<!-- <p>Value: <span id="demo"></span></p> -->
+
+
+
+<footer>
+    <p style="/* font-size: 20px; *//* line-height: 25px; */">
+        <strong>
+            Important Disclaimer: This is a research prototype, shared online only to demonstrate a potential
+            user-interface and transparent AI model framework for explainable fact-checking.
+        </strong>
+        <br/>
+        The results provided by this research prototype may be incorrect, and users are encouraged to consult other
+        resources and services to meet their trusted fact-checking needs.
+    </p>
+    <!--p>This tool is a research prototype and is provided without warranty.</p-->
+</footer>
+
+
+
+
+
+<script>
+
+/*
+$('#vera')
+  .on('affix.bs.affix', function () {
+    var margin_right =  parseInt($('.container').css("margin-right"));
+    var margin_left  = parseInt($('.container').css("margin-left"));
+    $("#vera").css("margin-right",margin_right);
+    $("#vera").css("margin-left",margin_left);
+});
+*/
+
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+    $('.progress').popover({
+      html: true,
+      content: function() {
+        return
+      }
+    })
+});
+
+var default_reps = {{rep}};
+for (let i=0; i < {{n}}; i++) {
+  $("#sourcerep"+i).on('click', function(event) {
+    document.getElementById("sliderep"+i).value = default_reps[i];
+    recalculate_veracity();
+
+  });
+}
+
+function recalculate_veracity(){
+  /*var stances = {{stances}}
+  var rep = {{rep}}
+  var n = {{n}};
+  //var output = document.getElementById("demo");
+  var score_against, score_neutral, score_for;
+  score_against = 0;
+  score_neutral = 0;
+  score_for = 0;
+  for (i = 0; i < n; i++){
+    score_against += rep[i] * stances[i][0];
+    score_neutral += rep[i] * stances[i][1];
+    score_for     += rep[i] * stances[i][2];
+  }
+
+  s = score_for + score_neutral + score_against;
+  score_against = 100 * score_against / s;
+  score_neutral = 100 * score_neutral / s;
+  score_for     = 100 * score_for / s;
+  console.log(score_against, score_neutral, score_for);
+  document.getElementById("vera_false").style = "color: #BF5700; width:" + score_against + "%";
+  document.getElementById("vera_unk").style = "color: #BF5700; width:" + score_neutral + "%";
+  document.getElementById("vera_true").style = "color: #BF5700; width:" + score_for + "%";
+  */
+  eval_vera();
+}
+
+
+// get result variables
+var stances = {{stances}};
+var predicted_stances = {{stances}}
+var rep = {{rep}}
+//var cur_rep = {{rep}}
+var n = {{n}};
+//var output = document.getElementById("demo");
+
+var init_vera = {{veracity}};
+var score = 0;
+var p = 0;
+//var clf_vera_coef = {{clf_vera_coef}};
+//var clf_vera_intc = {{clf_vera_intc}};
+
+var crowd_stance={{crowd_stance}};
+
+
+
+function pad(num, size) {
+    var s = "000000000" + num;
+    return s.substr(s.length-size);
+}
+
+// fix stance sort order
+for (i = 0; i < n; i++) {
+    ts = document.getElementById("textstance" + i);
+    ts.innerHTML = pad(parseInt(ts.innerHTML), 5);
+}
+
+
+function eval_vera(){
+
+  score = 0;
+  for (i = 0; i < n; i++){
+    score += rep[i] * stances[i];
+  }
+
+  p = 100 * Math.exp(score) / ( 1 +  Math.exp(score) )
+  console.log(p)
+  document.getElementById("vera_false").style = "color: #BF5700; width:" + (100 - p) + "%";
+  document.getElementById("vera_true").style = "color: #BF5700; width:" + p + "%";
+
+}
+
+eval_vera();
+slider = new Array(n);
+textreps = new Array(n);
+
+slidestance = new Array(n);
+textstance = new Array(n);
+
+
+
+for (i = 0; i < n; i++) {
+    slider[i] = document.getElementById("sliderep" + i);
+    slider[i].i = i
+    textreps[i] = document.getElementById("textrep" + i)
+    //textreps[i].i = i
+    slider[i].oninput = function() {
+        //output.innerHTML = this.value;
+        rep[this.i] = this.value;
+        textreps[this.i].innerHTML = this.value
+        eval_vera();
+        $("#mytable").trigger("update");
+    }
+    // stance sliders
+
+    slidestance[i] = document.getElementById("slidestance" + i);
+    slidestance[i].i = i
+    textstance[i] = document.getElementById("textstance" + i)
+    //textreps[i].i = i
+    slidestance[i].oninput = function() {
+        //output.innerHTML = this.value;
+        stances[this.i] = this.value;
+        textstance[this.i].innerHTML = this.value
+        eval_vera();
+        $("#mytable").trigger("update");
+    }
+
+
+
+}
+
+function set_color(elems, color){
+    for(var i = 0; i < elems.length; i++){
+        elems.item(i).style["background-color"] = color;
+    }
+}
+
+var state_keywords = 0;
+
+function show_keywords(){
+    if (state_keywords==0){
+        var elems = document.getElementsByClassName("stance_deny");
+        set_color(elems, "#fdae61")
+        
+        var elems = document.getElementsByClassName("stance_neutral");
+        set_color(elems, "#ffffbf")
+        
+        var elems = document.getElementsByClassName("stance_support");
+        set_color(elems, "#abd9e9")
+        state_keywords = 1;
+    }
+    else {
+        var elems = document.getElementsByClassName("stance_deny");
+        set_color(elems, "")
+        
+        var elems = document.getElementsByClassName("stance_neutral");
+        set_color(elems, "")
+        
+        var elems = document.getElementsByClassName("stance_support");
+        set_color(elems, "")
+        state_keywords = 0;
+    }
+    
+    
+    
+}
+
+
+function switch_stance(i){
+    console.log("start switch stance " + i)
+    var b;
+    b = document.getElementById("but_stance" + i);
+    
+    
+    
+    if (b.state=="auto" && crowd_stance[i] > -2){ // auto to crowd
+            b.state = "crowd";
+            slidestance[i].value = crowd_stance[i];
+            textstance[i].value = crowd_stance[i];
+            slidestance[i].oninput();
+            document.getElementById("stanceicon" + i).innerHTML = "people";
+            console.log("switch_stance_auto " + i);
+    }
+    else if (b.state=="crowd"){ // crowd to auto
+            b.state = "auto";
+            slidestance[i].value = predicted_stances[i];
+            textstance[i].value = predicted_stances[i];
+            slidestance[i].oninput();
+            document.getElementById("stanceicon" + i).innerHTML = "android";
+            console.log("switch_stance_crowd " + i);
+    }
+}
+
+function switch_stance_all(){
+    var b, b_state;    
+    b = document.getElementById("but_stance_all");
+    b_state = b.state;
+    
+    if (b.state=="crowd") {
+        b.state = "auto"; 
+        document.getElementById("stanceicon_all").innerHTML = "android";
+    }
+    else {
+        b.state = "crowd"; 
+        document.getElementById("stanceicon_all").innerHTML = "people";
+    }
+    
+    
+    var i;
+    for (i = 0; i < n; i++) {
+        b = document.getElementById("but_stance" + i);
+        if (b.state == b_state) {switch_stance(i);}
+    }
+}
+
+    
+/*
+function switch_all_stances_auto(){
+    var i;
+    for (i = 0; i < n; i++) {
+        switch_stances_auto(i);
+    
+    }
+    eval_vera();
+    $("#mytable").trigger("update");
+            
+}
+        
+        
+function switch_stances_predicted(){
+    var i;
+    for (i = 0; i < n; i++) {
+        if( true ){
+            slidestance[i].value = predicted_stances[i];
+            textstance[i].value = predicted_stances[i];
+            slidestance[i].oninput();
+            document.getElementById("stanceicon" + i).innerHTML = "android";
+            console.log(i);
+        }
+    
+    }
+    eval_vera();
+    $("#mytable").trigger("update");
+            
+}
+
+*/
+function f_temp(){
+    console.log(i);
+}
+
+document.getElementById("keywords").addEventListener("click", show_keywords);
+
+//document.getElementById("crowd_stance").addEventListener("click", switch_all_stances_auto);
+
+//document.getElementById("predicted_stance").addEventListener("click", switch_stances_predicted);
+
+var b;
+b = document.getElementById("but_stance_all");
+b.state = "auto";
+
+for (i = 0; i < n; i++){
+    b = document.getElementById("but_stance" + i);
+    b.state="auto"
+    //b.addEventListener("click", switch_stances_auto(this.idx));
+    
+}
+
+</script>
+
+</body>
+</html>

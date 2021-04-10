@@ -1,0 +1,1038 @@
+(lp0
+V000
+p1
+aV10
+p2
+aV100
+p3
+aV12
+p4
+aV12 inch
+p5
+aV2015
+p6
+aV500
+p7
+aVabdel
+p8
+aVabout
+p9
+aVabu
+p10
+aVabu bakr
+p11
+aVaccidentally
+p12
+aVadopts
+p13
+aVafghan
+p14
+aVafghan soldiers
+p15
+aVafter
+p16
+aVafter he
+p17
+aVagainst
+p18
+aVair
+p19
+aVairline
+p20
+aVairport
+p21
+aVairstrike
+p22
+aVairstrikes
+p23
+aVal
+p24
+aVal baghdadi
+p25
+aVall
+p26
+aValleged
+p27
+aVallegedly
+p28
+aVamerican
+p29
+aVamerican journalist
+p30
+aVan
+p31
+aVand
+p32
+aVankles
+p33
+aVapp
+p34
+aVapple
+p35
+aVapple watch
+p36
+aVarabia
+p37
+aVare
+p38
+aVargentina
+p39
+aVargentina president
+p40
+aVarms
+p41
+aVarrest
+p42
+aVarrested
+p43
+aVas
+p44
+aVat
+p45
+aVat least
+p46
+aVattack
+p47
+aVaudio
+p48
+aVbaby
+p49
+aVback
+p50
+aVbaghdadi
+p51
+aVbakr
+p52
+aVbakr al
+p53
+aVbank
+p54
+aVbank hank
+p55
+aVbanksy
+p56
+aVbatmobile
+p57
+aVbattery
+p58
+aVbattery life
+p59
+aVbe
+p60
+aVbear
+p61
+aVbear attack
+p62
+aVbeats
+p63
+aVbeats music
+p64
+aVbeen
+p65
+aVbefore
+p66
+aVbeheaded
+p67
+aVbeheaded by
+p68
+aVbeheading
+p69
+aVbeheading of
+p70
+aVbeheads
+p71
+aVbeing
+p72
+aVbieber
+p73
+aVbig
+p74
+aVbig bank
+p75
+aVbiopsy
+p76
+aVbirth
+p77
+aVbody
+p78
+aVborder
+p79
+aVborn
+p80
+aVboy
+p81
+aVbrain
+p82
+aVbreaking
+p83
+aVbreast
+p84
+aVbrian
+p85
+aVbrian williams
+p86
+aVbritish
+p87
+aVbrown
+p88
+aVbrown shooting
+p89
+aVbut
+p90
+aVbuy
+p91
+aVby
+p92
+aVby isis
+p93
+aVcamera
+p94
+aVcan
+p95
+aVcanadian
+p96
+aVcanadian border
+p97
+aVcapital
+p98
+aVcaptured
+p99
+aVcastro
+p100
+aVcat
+p101
+aVcaught
+p102
+aVcheese
+p103
+aVchild
+p104
+aVchinese
+p105
+aVchristmas
+p106
+aVclaim
+p107
+aVclaims
+p108
+aVclaims to
+p109
+aVcnn
+p110
+aVconfirms
+p111
+aVcook
+p112
+aVcost
+p113
+aVcould
+p114
+aVcrab
+p115
+aVcrabzilla
+p116
+aVculkin
+p117
+aVcut
+p118
+aVday
+p119
+aVdays
+p120
+aVdead
+p121
+aVdeath
+p122
+aVdeath hoax
+p123
+aVdenies
+p124
+aVdid
+p125
+aVdidn
+p126
+aVdied
+p127
+aVdies
+p128
+aVdisplay
+p129
+aVdoctor
+p130
+aVdoctor took
+p131
+aVdog
+p132
+aVdon
+p133
+aVdown
+p134
+aVduring
+p135
+aVebola
+p136
+aVedition
+p137
+aVemwazi
+p138
+aVexecutioner
+p139
+aVexpansion
+p140
+aVeye
+p141
+aVfake
+p142
+aVfamily
+p143
+aVfeatures
+p144
+aVfemale
+p145
+aVferguson
+p146
+aVfidel
+p147
+aVfighter
+p148
+aVfighters
+p149
+aVfirst
+p150
+aVfive
+p151
+aVfoley
+p152
+aVfor
+p153
+aVformer
+p154
+aVfound
+p155
+aVfrom
+p156
+aVfrom the
+p157
+aVgang
+p158
+aVgender
+p159
+aVget
+p160
+aVgets
+p161
+aVgiant
+p162
+aVgirl
+p163
+aVgirlfriend
+p164
+aVgives
+p165
+aVgod
+p166
+aVgod is
+p167
+aVgoes
+p168
+aVgoing
+p169
+aVgold
+p170
+aVgold apple
+p171
+aVgrave
+p172
+aVgroup
+p173
+aVhad
+p174
+aVhaines
+p175
+aVhair
+p176
+aVhands
+p177
+aVhank
+p178
+aVharvesting
+p179
+aVhas
+p180
+aVhave
+p181
+aVhave been
+p182
+aVhe
+p183
+aVhead
+p184
+aVher
+p185
+aVhewlett
+p186
+aVhewlett packard
+p187
+aVhigh
+p188
+aVhim
+p189
+aVhis
+p190
+aVhoax
+p191
+aVhomeless
+p192
+aVhomeless man
+p193
+aVhostage
+p194
+aVhouse
+p195
+aVhow
+p196
+aVidentified
+p197
+aVidentified as
+p198
+aVin
+p199
+aVin scotland
+p200
+aVin syria
+p201
+aVin the
+p202
+aVin us
+p203
+aVinch
+p204
+aVinch macbook
+p205
+aVinternet
+p206
+aVinto
+p207
+aVios
+p208
+aViphone
+p209
+aViraq
+p210
+aViraqi
+p211
+aVis
+p212
+aVis not
+p213
+aVisil
+p214
+aVisis
+p215
+aVisis claims
+p216
+aVisis fighters
+p217
+aVisis leader
+p218
+aVislamic
+p219
+aVislamic state
+p220
+aVisn
+p221
+aVisraeli
+p222
+aVit
+p223
+aVits
+p224
+aVjames
+p225
+aVjames foley
+p226
+aVjames wright
+p227
+aVjewish
+p228
+aVjihadi
+p229
+aVjihadi john
+p230
+aVjoan
+p231
+aVjoan rivers
+p232
+aVjobs
+p233
+aVjohn
+p234
+aVjong
+p235
+aVjong un
+p236
+aVjournalist
+p237
+aVjournalist james
+p238
+aVjust
+p239
+aVjustin
+p240
+aVjustin bieber
+p241
+aVkfc
+p242
+aVkilled
+p243
+aVkilled in
+p244
+aVkim
+p245
+aVkim jong
+p246
+aVkorea
+p247
+aVkorean
+p248
+aVkurdish
+p249
+aVlaunch
+p250
+aVleader
+p251
+aVleast
+p252
+aVleaves
+p253
+aVlebanon
+p254
+aVletter
+p255
+aVlife
+p256
+aVlondon
+p257
+aVmacaulay
+p258
+aVmacaulay culkin
+p259
+aVmacbook
+p260
+aVmacbook air
+p261
+aVmade
+p262
+aVmake
+p263
+aVmakes
+p264
+aVmale
+p265
+aVman
+p266
+aVmanson
+p267
+aVmarch
+p268
+aVmarijuana
+p269
+aVmarine
+p270
+aVmass
+p271
+aVmay
+p272
+aVmay be
+p273
+aVmcdonald
+p274
+aVmedia
+p275
+aVmen
+p276
+aVmeteorite
+p277
+aVmexican
+p278
+aVmexico
+p279
+aVmichael
+p280
+aVmichael brown
+p281
+aVmichael phelps
+p282
+aVmicrosoft
+p283
+aVmilitants
+p284
+aVmillion
+p285
+aVmissing
+p286
+aVmob
+p287
+aVmohammed
+p288
+aVmohammed emwazi
+p289
+aVmore
+p290
+aVmother
+p291
+aVmusic
+p292
+aVnamed
+p293
+aVnasa
+p294
+aVnear
+p295
+aVnew
+p296
+aVnews
+p297
+aVnext
+p298
+aVnhl
+p299
+aVnicaragua
+p300
+aVno
+p301
+aVnorth
+p302
+aVnorth korea
+p303
+aVnorth korean
+p304
+aVnot
+p305
+aVnote
+p306
+aVnow
+p307
+aVnun
+p308
+aVobama
+p309
+aVof
+p310
+aVof isis
+p311
+aVof michael
+p312
+aVof the
+p313
+aVoff
+p314
+aVoffice
+p315
+aVold
+p316
+aVon
+p317
+aVon the
+p318
+aVone
+p319
+aVonly
+p320
+aVopen
+p321
+aVottawa
+p322
+aVout
+p323
+aVover
+p324
+aVown
+p325
+aVpackard
+p326
+aVparents
+p327
+aVparliament
+p328
+aVpath
+p329
+aVpenis
+p330
+aVpeople
+p331
+aVphelps
+p332
+aVphoto
+p333
+aVplans
+p334
+aVplans to
+p335
+aVpolice
+p336
+aVpregnant
+p337
+aVpresident
+p338
+aVpriest
+p339
+aVrapper
+p340
+aVrat
+p341
+aVreal
+p342
+aVreally
+p343
+aVrecording
+p344
+aVrelease
+p345
+aVreport
+p346
+aVreported
+p347
+aVreportedly
+p348
+aVreports
+p349
+aVrestaurant
+p350
+aVreveals
+p351
+aVrivers
+p352
+aVrivers doctor
+p353
+aVrogen
+p354
+aVrumor
+p355
+aVrumors
+p356
+aVrussian
+p357
+aVsafes
+p358
+aVsaid
+p359
+aVsaudi
+p360
+aVsaudi arabia
+p361
+aVsaved
+p362
+aVsay
+p363
+aVsays
+p364
+aVschool
+p365
+aVscorpion
+p366
+aVscotland
+p367
+aVsecurity
+p368
+aVselfie
+p369
+aVsell
+p370
+aVset
+p371
+aVseth
+p372
+aVseth rogen
+p373
+aVsex
+p374
+aVshe
+p375
+aVshe was
+p376
+aVshooting
+p377
+aVshot
+p378
+aVshow
+p379
+aVshowing
+p380
+aVshows
+p381
+aVsite
+p382
+aVskin
+p383
+aVso
+p384
+aVsocial
+p385
+aVsoldier
+p386
+aVsoldiers
+p387
+aVson
+p388
+aVsotloff
+p389
+aVsource
+p390
+aVspider
+p391
+aVsplit
+p392
+aVstainless
+p393
+aVstainless steel
+p394
+aVstar
+p395
+aVstate
+p396
+aVsteel
+p397
+aVsteve
+p398
+aVsteve jobs
+p399
+aVsteven
+p400
+aVsteven sotloff
+p401
+aVstill
+p402
+aVstolen
+p403
+aVstomach
+p404
+aVstop
+p405
+aVstore
+p406
+aVstores
+p407
+aVstory
+p408
+aVstrike
+p409
+aVstudent
+p410
+aVstudents
+p411
+aVsugarhill
+p412
+aVsugarhill gang
+p413
+aVsurgery
+p414
+aVsyria
+p415
+aVtaliban
+p416
+aVteacher
+p417
+aVteen
+p418
+aVteenager
+p419
+aVterror
+p420
+aVterrorists
+p421
+aVtexas
+p422
+aVthat
+p423
+aVthe
+p424
+aVthe apple
+p425
+aVtheir
+p426
+aVthere
+p427
+aVthey
+p428
+aVthird
+p429
+aVthird breast
+p430
+aVthis
+p431
+aVthreatened
+p432
+aVthree
+p433
+aVthrough
+p434
+aVtim
+p435
+aVtime
+p436
+aVto
+p437
+aVto be
+p438
+aVto have
+p439
+aVto open
+p440
+aVto sell
+p441
+aVto show
+p442
+aVto split
+p443
+aVto stop
+p444
+aVtook
+p445
+aVtook selfie
+p446
+aVtrip
+p447
+aVtruck
+p448
+aVtrying
+p449
+aVtrying to
+p450
+aVtv
+p451
+aVtwitter
+p452
+aVtwo
+p453
+aVuk
+p454
+aVun
+p455
+aVunder
+p456
+aVup
+p457
+aVupdate
+p458
+aVupdated
+p459
+aVus
+p460
+aVuse
+p461
+aVvideo
+p462
+aVvideo shows
+p463
+aVviral
+p464
+aVvogue
+p465
+aVwakes
+p466
+aVwakes up
+p467
+aVwants
+p468
+aVwar
+p469
+aVwas
+p470
+aVwatch
+p471
+aVwatch edition
+p472
+aVwatch to
+p473
+aVwatch will
+p474
+aVwatches
+p475
+aVway
+p476
+aVwe
+p477
+aVweapons
+p478
+aVweek
+p479
+aVwerewolf
+p480
+aVwhat
+p481
+aVwhen
+p482
+aVwhile
+p483
+aVwho
+p484
+aVwife
+p485
+aVwill
+p486
+aVwill be
+p487
+aVwilliams
+p488
+aVwith
+p489
+aVwoman
+p490
+aVwomen
+p491
+aVworker
+p492
+aVworld
+p493
+aVwozniak
+p494
+aVwright
+p495
+aVwright foley
+p496
+aVyear
+p497
+aVyear old
+p498
+aVyou
+p499
+aVyour
+p500
+aS'QuestionMark'
+p501
+aS'Word2VecSimilaritySemantic'
+p502
+aS'AlignedPPDBSemantic'
+p503
+aS'NegationAlignment'
+p504
+aS'DependencyRootDepth 1'
+p505
+aS'DependencyRootDepth 2'
+p506
+aS'SVOTransform 0'
+p507
+aS'SVOTransform 1'
+p508
+aS'SVOTransform 2'
+p509
+aS'SVOTransform 3'
+p510
+aS'SVOTransform 4'
+p511
+aS'SVOTransform 5'
+p512
+aS'SVOTransform 6'
+p513
+aS'SVOTransform 7'
+p514
+aS'SVOTransform 8'
+p515
+aS'SVOTransform 9'
+p516
+aS'SVOTransform 10'
+p517
+aS'SVOTransform 11'
+p518
+a.

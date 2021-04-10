@@ -1,0 +1,40 @@
+Claim,ClaimBias,Source,SourceBias,Headline,Stance,SourceReputation,ClaimID,SourceID,HeadlineID,StanceValue
+Hufflepuff players have access to a special potion that gives them an edge over the quidditch championship this year,Ravenclaw,"	Hufflepuff Post		",q,h,Neutral,90,1,1,1,50
+Hufflepuff players have access to a special potion that gives them an edge over the quidditch championship this year,Ravenclaw,"	Hufflepuff Post		",q,h,Neutral,90,1,1,2,50
+Hufflepuff players have access to a special potion that gives them an edge over the quidditch championship this year,Ravenclaw,"	Hufflepuff Post		",q,h,Neutral,90,1,1,3,50
+Hufflepuff players have access to a special potion that gives them an edge over the quidditch championship this year,Ravenclaw,"	Hufflepuff Post		",q,h,Neutral,90,1,1,4,50
+Hufflepuff players have access to a special potion that gives them an edge over the quidditch championship this year,Ravenclaw,"	Hufflepuff Post		",q,h,Neutral,90,1,1,5,50
+Three Ravenclaw players have been selected to play in the International Quidditch world championship,Ravenclaw,"	Ravenclaw Times		",q,h,Neutral,30,2,2,1,50
+Three Ravenclaw players have been selected to play in the International Quidditch world championship,Ravenclaw,"	Ravenclaw Times		",q,h,Neutral,30,2,2,2,50
+Three Ravenclaw players have been selected to play in the International Quidditch world championship,Ravenclaw,"	Ravenclaw Times		",q,h,Neutral,30,2,2,3,50
+Three Ravenclaw players have been selected to play in the International Quidditch world championship,Ravenclaw,"	Ravenclaw Times		",q,h,Neutral,30,2,2,4,50
+Three Ravenclaw players have been selected to play in the International Quidditch world championship,Ravenclaw,"	Ravenclaw Times		",q,h,Neutral,30,2,2,5,50
+Ravenclaw players cheated during the last match of the tournament,Hufflepaff,"	The Diagon Alley News		",q,h,Neutral,10,3,3,1,50
+Ravenclaw players cheated during the last match of the tournament,Hufflepaff,"	The Diagon Alley News		",q,h,Neutral,10,3,3,2,50
+Ravenclaw players cheated during the last match of the tournament,Hufflepaff,"	The Diagon Alley News		",q,h,Neutral,10,3,3,3,50
+Ravenclaw players cheated during the last match of the tournament,Hufflepaff,"	The Diagon Alley News		",q,h,Neutral,10,3,3,4,50
+Ravenclaw players cheated during the last match of the tournament,Hufflepaff,"	The Diagon Alley News		",q,h,Neutral,10,3,4,1,50
+Hogwarts will host the international wizard's dance this year,Neutral,"	Godric's Hallow Network		",q,h,Neutral,70,4,4,2,50
+Hogwarts will host the international wizard's dance this year,Neutral,"	Godric's Hallow Network		",q,h,Neutral,70,4,4,3,50
+Hogwarts will host the international wizard's dance this year,Neutral,"	Godric's Hallow Network		",q,h,Neutral,70,4,4,4,50
+Hogwarts will host the international wizard's dance this year,Neutral,"	Godric's Hallow Network		",q,h,Neutral,70,4,4,5,50
+Hogwarts will host the international wizard's dance this year,Neutral,"	Godric's Hallow Network		",q,h,Neutral,70,4,4,6,50
+Ravenclaw and Hufflepuff jointly starts a training program for the upcoming Goblet of Fire,Neutral,"	The Proffets		",q,h,Neutral,50,5,5,1,50
+Ravenclaw and Hufflepuff jointly starts a training program for the upcoming Goblet of Fire,Neutral,"	The Proffets		",q,h,Neutral,50,5,5,2,50
+Ravenclaw and Hufflepuff jointly starts a training program for the upcoming Goblet of Fire,Neutral,"	The Proffets		",q,h,Neutral,50,5,5,3,50
+Ravenclaw and Hufflepuff jointly starts a training program for the upcoming Goblet of Fire,Neutral,"	The Proffets		",q,h,Neutral,50,5,5,4,50
+Ravenclaw and Hufflepuff jointly starts a training program for the upcoming Goblet of Fire,Neutral,"	The Proffets		",q,h,Neutral,50,5,5,5,50
+Ravenclaw representative will work with the ministry of magic to help deal with dementors problem,Ravenclaw,"	Magician's notebook		",q,h,Neutral,20,6,6,1,50
+Hufflepuff helps out refugees in the wizarding world,Hufflepuff,"	Magic Daily		",q,h,Neutral,80,6,7,1,50
+Hufflepuff is using magical creatures to hyptnotize the refree during the quidditch match,Hufflepuff,"	Hogwarts News		",q,h,Neutral,10,6,8,1,50
+Prof. Sprout from Hufflepuff teaches players to use herbs to gain more speed in a quidditch game,Hufflepuff,a,q,h,Neutral,0,6,9,1,50
+Ravenclaw bans the use of Hufflepuff colors - yellow and black - in any form within 100 yards of the house,Ravenclaw,a,q,h,Neutral,0,6,9,2,50
+Ravenclaw eagles are working as a secondary line of watch to ensure security of students during Quidditch match,Ravenclaw,a,q,h,Neutral,0,7,9,3,50
+Hermione Granger foundation planning to start a scholarship for students for the underrepresented communities,Neutral,a,q,h,Neutral,0,7,9,4,50
+"Dumbledor says, ""Voldemort is not back. No need to panic"". ",Neutral,a,q,h,Neutral,0,7,9,5,50
+Ravenclaw own the International Puzzle competition by defeating Hufflepuff in the finals,Ravenclaw,a,q,h,Neutral,0,7,9,6,50
+Ravenclaw forces students to read the Quibbler Magazine as they Head of the House joins the editorial board,Ravenclaw,a,q,h,Neutral,0,7,9,7,50
+Hufflepuff students got outstanding grades in their Herbology class ,Hufflepuff,a,q,h,Neutral,0,7,9,8,50
+"Cho Chang, the Ravenclaw player is selected as the best Quidditch player by the Asian Magical Association",Ravenclaw,a,q,h,Neutral,0,7,9,9,50
+Cedric Diggory from Hufflepuff is brought back from death by the head of the house,Hufflepuff,a,q,h,Neutral,0,7,9,10,50
+Hufflepuff house fails to control the Badgers to stop stealing food from the Hogwarts kitchen ,Hufflepuff,a,q,h,Neutral,0,7,9,11,50

@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Claim Checker</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+  <script src="https://kit.fontawesome.com/656d6b4226.js" crossorigin="anonymous"></script>
+
+  
+  <script type="text/javascript" src="{{ url_for('static', filename='jquery.tablesorter.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='jquery.runner.js') }}"></script>
+  <link href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- <script src="https://assets.crowd.aws/crowd-html-elements.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/gh/anubrata/turkey-lite@master/js/turkey-lite-prod.js"></script>
+  
+  <script>
+    $(document).ready(function(){
+      $(function(){
+        $("#mytable").tablesorter({
+          headers: { 2: { sorter: false}, 3: { sorter: false}     }
+        });
+      });
+    });
+  </script>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.min.css">
+  
+  
+</head>
+<body>
+<div class='fixed-top topnav'>
+<!--     <img src='{{ url_for("static", filename="knockout_university_informal_horizontal.png")}}' class='nav-shield'> -->
+    <span class='nav-header'>University of Texas Information Retrieval and Crowdsourcing Lab</span>
+</div>
+<form id='mturk_form' method="POST" action="{{ amazon_url }}">
+<div class='runner'>
+  <i class="fas fa-clock"></i>
+  <span id='runner'></span>
+</div>
+<div id='consent'>
+  <div class='container-flex' style='padding-top: 75px; height: 90vh; width: 100%;'>
+    <div class='row' style='height: 100%; width: 100%'>
+        <div class='col-12 consent'>
+            <div class='consent-inner'>
+                <div id='consent-md'>
+                  {{ consentMd }}
+                </div>
+                <br>
+                <br>
+                <input type="button" id='consent-next' value="Next" class='btn-submit'>
+                <br>
+                <br>
+            </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+<div id='initialSurvey'>
+  <div class='container-flex' style='padding-top: 75px; height: calc(100% - 100px); width: 100%'>
+    <div class='row' style='height: 100%; width: 100%'>
+        <div class='col-12 initialSurvey' align='center'>
+            <div class='complete-inner'>
+              <span class='instructions-text'>How do you assess the truthfulness of news shared on social media (write 2-3 sentences)?</span>
+              <br>
+              <br>
+              <textarea name='initialSurveyText' id='initialSurveyText' style='width: 70%; height: 200px'></textarea>
+              <br>
+              <br>
+
+              <input type="button" id='initial-survey-next' value="Next" class='btn-next-article'>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div id='instructions'>
+  <div class='container-flex' style='height: 100%; width: 100%;'>
+    <div class='row' style='width: 100%; overflow-y: scroll'>
+        <div class='col-12 initial-instructions'>
+            <div class='initial-instructions-inner'>
+                <div id='instructions-md'>
+                  {{ instructionsMd }}
+                </div>
+                <input type="button" id='instructions-next' value="Next" class='btn-next'>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<div id='experiment'>
+  <div class='progress-container'>
+    <span>Progress:</span>
+    <br>
+    <div id='progressbar' class='progress'></div>
+  </div>
+  <div class='container-flex' style='padding-top: 75px; width: 100%; height: calc(100vh-75px)'>
+      <div class='row' style='height: 100%; width: 100%'>
+          <div class='col-2 instructions'>
+              <div style='margin-top: 30px'>
+                  <span class='instructions-header'>Instructions:</span>
+              </div>
+              <div class='instructions-outer' id='instructions-sidebar'>
+              </div>
+          </div>
+          <div class='col claim-container' align='center'>
+              <div class='claim-inner'>
+                  <hr>
+                  <span class='claim-header'>
+                      <span style='text-decoration: underline'>Claim</span>: 
+                      <span id='claimText'></span>
+                  </span>
+                  <hr>
+                  <br>
+                  {% if veracity_prediction %}
+                  <h3 style="position: relative; color: #BF5700; text-align: center; margin-top: 10px; "> Predicted Correctness <a href="#" data-toggle="popover"  data-trigger="focus hover" data-content="{{ tooltip_veracity_predictor }}"><i class="glyphicon glyphicon-question-sign"></i></a></h3>
+                  <br>
+                  <div class="progress" id="progress" style='width: 90%'>
+                        <div id = "vera_false" class="progress-bar progress-bar-success" role="progressbar" style="width:70%">
+                            <span style='color: #fff; line-height: 20px'>True</span>
+                        </div>
+                        <div id = "vera_true" class="progress-bar progress-bar-danger" role="progressbar" style="width:30%">
+                            <span style='color: #fff; line-height: 20px'>False</span>
+                        </div>
+                  </div>
+                  <br>
+                  {% endif %}
+                  {% if bias_prediction %}
+                  <hr>
+                  <h3 style="position: relative; color: #BF5700; text-align: center; margin-top: 10px; "> Overall Political Leaning <a href="#" data-toggle="popover"  data-trigger="focus hover" data-content="{{ tooltip_overall_leaning }}"><i class="glyphicon glyphicon-question-sign"></i></a></h3>
+                  <br>
+                  <div class="progress" id="bias" style='width: 90%'>
+                        <div id = "vera_liberal" class="progress-bar progress-bar-primary" role="progressbar" style="width:70%">
+                            <span style='color: #fff; line-height: 20px'>Liberal</span>
+                        </div>
+                        <div id = "vera_conservative" class="progress-bar progress-bar-warning" role="progressbar" style="width:30%">
+                            <span style='color: #fff; line-height: 20px'>Conservative</span>
+                        </div>
+                  </div>
+                  <br>
+                  {% endif %}
+                  <span class='claim-subheader'>
+                      Relevant Information:
+                      <a href="#" data-toggle="popover"  data-trigger="focus hover" data-content="{{ tooltip_relevant_articles }}"><i class="glyphicon glyphicon-question-sign"></i></a>
+                  </span>
+                  <table class="table" style="margin-top: 20px; width: 95%" id="articles-table">
+                      <thead>
+                          <tr>
+                              <th> 
+                                  Headline
+                              </th>
+                              {% if static_stance or dynamic_stance %}
+                              <th style='width: 130px'>
+                                  Stance
+                                  <a href="#" data-toggle="popover"  data-trigger="focus hover" data-content="{{ tooltip_stance }}"><i class="glyphicon glyphicon-question-sign"></i></a>
+                              </th>
+                              {% if static_stance %}
+                              <th style='min-width: 150px'>
+                                  Do you agree with this prediction?
+                              </th>
+                              {% endif %}
+                              {% endif %}
+                              <th style='width: 100px'>
+                                  Source
+                              </th>
+                              {% if static_reputation or dynamic_reputation %}
+                              <th style='width: 120px'>
+                                  Predicted Reputation <a href="#" data-toggle="popover"  data-trigger="focus hover" data-content="{{ tooltip_predicted_reputation }}"><i class="glyphicon glyphicon-question-sign"></i></a>
+                              </th>
+                              {% endif %}
+                              {% if static_reputation %}
+                              <th style='width: 150px'>
+                                  Do you think this prediction is reasonable?
+                              </th>
+                              {% endif %}
+                              {% if static_bias %}
+                              <th style='width: 180px'>
+                                  Political Bias <a href="#" data-toggle="popover"  data-trigger="focus hover" data-content="{{ tooltip_political_bias }}"><i class="glyphicon glyphicon-question-sign"></i></a>
+                              </th>
+                              {% endif %}
+                          </tr>
+                      </thead>
+                      <tbody id='articles'>
+                      </tbody>
+                  </table>
+                  <hr>
+                  <br>
+                    <input type="hidden" id="assignmentId" value="{{ hit_data.assignmentId }}" name="assignmentId"/>
+                    <input type="hidden" id="workerId" value="{{ hit_data.workerId }}" name="workerId"/>
+                    <input type="hidden" id="hitId" value="{{ hit_data.hitId }}" name="hitId"/>
+                    <div id='claim-form'>
+                   
+                    </div>
+                    <input type="button" value="Next" id='experiment-next' class='btn-next-article'>
+                    <br>
+                    <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id='survey'>
+  <div class='container-flex' style='padding-top: 75px; height: calc(100%-100px); width: 100%'>
+    <div class='row' style='height: 100%; width: 100%'>
+        <div class='col-12 instructions' align='center'>
+            <div class='complete-inner'>
+
+              <span class='instructions-text'>Do you have any feedback for this survey?</span>
+              <br>
+              <br>
+              <textarea name='feedback' style='width: 70%; height: 200px'></textarea>
+              <br>
+              <br>
+              <span class='instructions-text'>Please complete the following survey: <a href='https://utexas.qualtrics.com/jfe/form/SV_8AJ53ekl2K4xSzH' target="_blank">Click Here</a></span>
+              <br>
+              <input type='text' id="survey_code" name="survey_code" placeholder='Survey Code' required>
+              <br>
+              <br>
+              <input type="submit" value="Submit" id='submitButton' class='btn-next-article'>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+</form>
+
+    
+    <!-- <p>Value: <span id="demo"></span></p> -->
+    
+    <script>
+      var claims = {{claim_data| safe}};
+      var num_claims = {{num_claims}};
+
+      var static_reputation = ('{{static_reputation}}' == 'True');
+      var dynamic_reputation = ('{{dynamic_reputation}}' == 'True');
+      var static_stance = ('{{static_stance}}' == 'True');
+      var dynamic_stance = ('{{dynamic_stance}}' == 'True');
+      var static_bias = ('{{static_bias}}' == 'True');
+      var veracity_prediction = ('{{veracity_prediction}}' == 'True');
+      var bias_prediction = ('{{bias_prediction}}' == 'True');
+
+      var show_urls = ('{{show_urls}}' == 'True');
+
+      console.log("Static " + static_reputation);
+      console.log("Dynamic " + dynamic_reputation);
+
+      var claim_index = 0;
+      var claim_order = [];
+      var current_id = 0;
+      
+      for (let i = 0; i < num_claims; i++) {
+        claim_order.push(i + 1);
+      }
+
+      console.log(claim_order);
+
+      function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+      }
+
+      shuffle(claim_order);
+      current_id = claim_order[0];
+
+      console.log(claim_order);
+
+      function loadForm(claim_id) {
+        console.log(claim_order[parseInt(claim_order.indexOf(claim_id) - 1)]);
+        $('#claim-inner-' + claim_order[parseInt(claim_order.indexOf(claim_id) - 1)]).hide();
+        $('#claim-form').append(`
+          <div id='claim-inner-` + claim_id + `'>
+          
+          <span class='claim-question'>Do you believe this claim is true or false?</span>
+          <div style="display: grid; grid-auto-flow: column; grid-gap: 20px; width: 75%; min-width: 500px; grid-template-columns: repeat(6, minmax(0, 1fr));">
+              <div class='form-option'>
+                  <input id='veracity-` + claim_id + `' type='checkbox' name='veracity-absolutely-true-` + claim_id + `' class='checkbox-hidden veracity'>
+                  <span class='form-text'>
+                      Absolutely true
+                  </span>
+              </div>
+              <div class='form-option'>
+                <input id='veracity-` + claim_id + `' name='veracity-mostly-true-` + claim_id + `' type='checkbox' class='checkbox-hidden veracity'>
+                  <span class='form-text'>
+                      Most likely true
+                  </span>
+              </div>
+              <div class='form-option'>
+                  <input id='veracity-` + claim_id + `' name='veracity-maybe-true-` + claim_id + `' type='checkbox' class='checkbox-hidden veracity'>
+                  <span class='form-text'>
+                      Maybe true
+                  </span>
+              </div>
+              <div class='form-option'>
+                  <input id='veracity-` + claim_id + `' name='veracity-maybe-false-` + claim_id + `' type='checkbox' class='checkbox-hidden veracity'>
+                  <span class='form-text'>
+                      Maybe false
+                  </span>
+              </div>
+              <div class='form-option'>
+                  <input id='veracity-` + claim_id + `' name='veracity-mostly-false-` + claim_id + `' type='checkbox' class='checkbox-hidden veracity'>
+                  <span class='form-text'>
+                      Most likely false
+                  </span>
+              </div>
+              <div class='form-option'>
+                  <input id='veracity-` + claim_id + `' name='veracity-absolutely-false-` + claim_id + `' type='checkbox' class='checkbox-hidden veracity'>
+                  <span class='form-text'>
+                      Absolutely false
+                  </span>
+              </div>
+          </div>  
+          <br>
+          <hr>  
+          <br>
+          <span class='claim-question'>If 100 people were taking this survey, how many of them would agree with your choice above?</span>
+          <div style="display: grid; grid-auto-flow: column; grid-gap: 20px; width: 75%; min-width: 500px; grid-template-columns: repeat(5, minmax(0, 1fr));">
+              <div class='form-option'>
+                  <input id='confidence-` + claim_id + `' name='confidence_0_20-` + claim_id + `' type='checkbox' class='checkbox-hidden confidence'>
+                  <span class='form-text'>
+                      < 20
+                  </span>
+              </div>
+              <div class='form-option'>
+                  <input id='confidence-` + claim_id + `' name='confidence_20_40-` + claim_id + `' type='checkbox' class='checkbox-hidden confidence'>
+                  <span class='form-text'>
+                      20-40
+                  </span>
+              </div>
+              <div class='form-option'>
+                  <input id='confidence-` + claim_id + `' name='confidence_40_60-` + claim_id + `' type='checkbox' class='checkbox-hidden confidence'>
+                  <span class='form-text'>
+                      40-60
+                  </span>
+              </div>
+              <div class='form-option'>
+                  <input id='confidence-` + claim_id + `' name='confidence_60_80-` + claim_id + `' type='checkbox' class='checkbox-hidden confidence'>
+                  <span class='form-text'>
+                      60-80
+                  </span>
+              </div>
+              <div class='form-option'>
+                  <input id='confidence-` + claim_id + `' name='confidence_80_100-` + claim_id + `' type='checkbox' class='checkbox-hidden confidence'>
+                  <span class='form-text'>
+                      80-100
+                  </span>
+              </div>
+          </div>  
+          <br>
+          <hr>  
+          <br>
+
+          <span class='claim-question'>Please write 1-2 sentence explaining your answer.</span>
+          <br>
+          <textarea id='explanation-` + claim_id + `' name='explanation-` + claim_id + `' style='width: 40%; min-width: 300px; height: 150px'></textarea>
+          <br>
+          <br>
+          <hr> 
+        `);
+      }
+
+      function eval_vera(){
+        let score = 0;
+        $('#articles > tr').each(function() {
+          let stance = $(this).find('#stance_text').text();
+          if (String(stance) == 'for') {
+            if (static_reputation) {
+              score -= ((parseFloat($(this).find('.progress-bar').css('width')) - 50) / 50);
+              
+            } else {
+              score -= parseFloat($(this).find('input.slider').val());
+            }
+            
+          } else if (String(stance) == 'against') {
+            if (static_reputation) {
+              score += ((parseFloat($(this).find('.progress-bar').css('width')) - 50) / 50);
+            } else {
+              score += parseFloat($(this).find('input.slider').val());
+            }
+          }
+        });
+
+        p = 100 * Math.exp(score) / ( 1 +  Math.exp(score) )
+        document.getElementById("vera_false").style = "color: #BF5700; width:" + (100 - p) + "%";
+        document.getElementById("vera_true").style = "color: #BF5700; width:" + p + "%";
+
+      }
+
+      function eval_bias(){
+        let score = 0;
+        $('#articles > tr').each(function() {
+          let bias = parseInt($(this).find('#bias_score').text());
+          let reputation = $(this).find('.reputation_slider').val();
+          console.log("Bias: " + bias);
+          console.log("Reputation: " + reputation);
+
+          if (bias < 2) {
+            score -= parseFloat((bias - 2) * reputation);
+          } else if (bias > 2) {
+            score -= parseFloat((bias - 2) * reputation);
+          }
+        });
+
+        p = 100 * Math.exp(score) / ( 1 +  Math.exp(score) )
+        document.getElementById("vera_conservative").style = "color: #BF5700; width:" + (100 - p) + "%";
+        document.getElementById("vera_liberal").style = "color: #BF5700; width:" + p + "%";
+      }
+
+
+      function logTime(position, time) {
+        $('#mturk_form').append(`
+          <input type="hidden" name="` + position + `" value="` + time + `">`);
+      }
+
+      function getHeadlines(claim_id) {
+        current_id = claim_order[claim_id];
+        $('.hidden-input').attr('id', current_id);
+
+        $('#articles').find('tr').hide();
+        let lastIndex = 0;
+        let hasArticles = false;
+        // position = 0Object.keys(claims).length;
+
+        Object.keys(claims).forEach(function(key) {
+          let claim = claims[key];
+          lastIndex += 1;
+
+          if (parseInt(claim.claimId) == claim_order[claim_id]) {
+            hasArticles = true;
+            $('#claimText').text(claim['claimHeadline']);
+
+            $('#articles').append(`
+            <tr>` + 
+              (show_urls ? `<td> <a href='` + claim['url'] + `' target='_blank'>` + claim['articleHeadline'] + ` </a> </td>` : `<td>` + claim['articleHeadline'] + `</td>`) + 
+
+              ((static_stance || dynamic_stance) ? `
+                <td style="background-color: rgba(` + 
+                    ((claim['articleHeadlineStance'] == 'for') || (claim['articleHeadlineStance'] == 'against') ? 
+                      ((claim['articleHeadlineStance'] == 'for') ? '40, 167, 70, 0.3)' : '255, 193, 7, 0.3)')
+                    : '204, 204, 204, 0.3)') +`"> <span id="stance_text" style="line-height:30px">` + claim['articleHeadlineStance'] + `</span>` +
+                (dynamic_stance ? `
+                    <button type="button" class="btn btn-outline-secondary toggleBtn" size="sm" style='float: right'>
+                      <i class="fas fa-wrench"></i>
+                    </button></td>
+                    ` : '') + `</td>` : '') +
+
+              (static_stance ? `
+                <td>
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-success prediction-button-agree">
+                      <input type="radio" value="agree" name="radio_stance_agree_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `"  id="radio_stance_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `_agree"  autocomplete="off"> Agree
+                    </label>
+                    <label class="btn btn-outline-warning prediction-button-disagree">
+                      <input type="radio" value="disagree" name="radio_stance_disagree_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `"  id="radio_stance_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `_disagree" autocomplete="off"> Disagree
+                    </label>
+                  </div>
+                </td>` : '') +
+
+              `<td>` + claim['source'] + `</td>` + 
+
+              (static_reputation ? `
+                    <td>
+                      <div class="progress shadow">
+                        <div class="progress-bar" role="progressbar" style="width: ` + ((50 * parseFloat(claim['sourceReputation'])) + 50) + `%;" aria-valuenow=" ` + ((50 * parseFloat(claim['sourceReputation'])) + 50) + `" aria-valuemin="-1" aria-valuemax="1">` + parseFloat(claim['sourceReputation']).toFixed(3) + `</div>
+                      </div>
+                    </td>` : 
+                    (dynamic_reputation ? `
+                      <td>
+                        <input type="range" min="-1" max="1" step="0.1" id="reputation_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `" name="reputation_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `" value="` + claim['sourceReputation'] +`" class="slider reputation_slider">
+                      </td>` : '')) + 
+
+              (static_reputation ? `
+                <td>
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-success prediction-button-agree">
+                      <input type="radio" value='agree' name="radio_reputation_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `" id="radio_reputation_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `" autocomplete="off"> Agree
+                    </label>
+                    <label class="btn btn-outline-warning prediction-button-disagree">
+                      <input type="radio" value='disagree' name="radio_reputation_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `" id="radio_reputation_headline_` + claim['articleId'] + `_source_` + claim['sourceId'] + `" autocomplete="off"> Disagree
+                    </label>
+                  </div>
+                  </div>
+                </td>` : '') + 
+
+              (static_bias ? `
+                <td>
+                  <span id='bias_score' style='display: none'>` + claim['sourceBias'] + `</span>
+                  <div class="bias-box" style="background-color: ` + ((claim['sourceBias'] == '0') ? '#2E66A0' : '#ddd') + `">
+                    L
+                  </div>
+                  <div class="bias-box" style="background-color: ` + ((claim['sourceBias'] == '1') ? '#9EC8EB' : '#ddd') + `">
+                    L
+                  </div>
+                  <div class="bias-box" style="background-color: ` + ((claim['sourceBias'] == '2') ? '#9766A0' : '#ddd') + `">
+                    C
+                  </div>
+                  <div class="bias-box" style="background-color: ` + ((claim['sourceBias'] == '3') ? '#D7B4B1' : '#ddd') + `">
+                    R
+                  </div>
+                  <div class="bias-box" style="background-color: ` + ((claim['sourceBias'] == '4') ? '#D03336' : '#ddd') + `">
+                    R
+                  </div>
+                </td>` : '') + 
+
+              
+          
+
+            `</tr>`);
+
+            $(".toggleBtn").off('click').on('click', function() {
+              console.log("ONERUN \n");
+              let bg = $(this).parent().css("background-color");
+              console.log($(this).prev('#stance_text').text());
+              console.log("BG: " + bg);
+              let stance = $(this).prev('#stance_text').text();
+              //console.log(bg);
+              if (stance == 'neutral') {
+                $(this).parent().css("background-color", "rgba(255, 193, 7, 0.3)");
+                $(this).prev().text('against');
+              } else if (stance == 'against') {
+                $(this).parent().css("background-color", "rgba(40, 167, 70, 0.3)");
+                $(this).prev().text('for');
+              } else if (stance == 'for') {
+                $(this).parent().css("background-color", "rgba(204, 204, 204, 0.3)");
+                $(this).prev().text('neutral');
+              }
+              if (veracity_prediction) {
+                eval_vera();
+              }
+              if (bias_prediction) {
+                eval_bias();
+              }
+            });
+
+            $('#progressbar').progressbar({
+              value: ((claim_order.indexOf(claim_order[claim_id]) / claim_order.length) * 100)
+            });
+            if (veracity_prediction) {
+              eval_vera();
+            }
+            if (bias_prediction) {
+              eval_bias();
+            }
+          }
+        });
+
+        if (!hasArticles) {
+          $('#experiment').hide();
+          $('#survey').show();
+        } else {
+          loadForm(current_id);
+
+          $('.veracity').on('click', function() {
+            $('.veracity').parent().css({'border': 'none', 'background-color': '#f5f5f5'});
+            $(this).parent().css({'border': '1px solid #000', 'background-color': '#efefef'});
+            $(this).prop('checked', true);
+          });
+
+          $('.confidence').on('click', function() {
+            $('.confidence').parent().css({'border': 'none', 'background-color': '#f5f5f5'});
+            $(this).parent().css({'border': '1px solid #000', 'background-color': '#efefef'});
+            $(this).prop('checked', true);
+          });
+
+          $('.slider').change(function() {
+            if (veracity_prediction) {
+                eval_vera();
+              }
+              if (bias_prediction) {
+                eval_bias();
+              }
+          });
+        }
+      }
+      
+    
+      
+      $(document).ready(function(){
+        $('#runner').runner({
+          milliseconds: false
+        });
+        $('#runner').runner('start');
+
+        $('[data-toggle="popover"]').popover();
+
+        let startConsent = $('#consent-md').text();
+        console.log(startConsent);
+        $('#consent-md').empty();
+        $('#consent-md').append($.parseHTML(startConsent));
+
+        let startInstructions = $('#instructions-md').text();
+        console.log(startInstructions);
+        $('#instructions-md').empty();
+        $('#instructions-md').append($.parseHTML(startInstructions));
+        $('#instructions-sidebar').append($.parseHTML(startInstructions));
+
+
+        $('#consent-next').on('click', function() {
+          $('#consent').hide();
+          $('#initialSurvey').show();
+          logTime('timer_consent', $('#runner').runner('lap'));
+        });
+
+        $('#initial-survey-next').on('click', function() {
+          if ($.trim($('#initialSurveyText').val()).length >= 50) {
+            $('#initialSurvey').hide();
+            $('#instructions').show();
+            logTime('timer_initial_survey', $('#runner').runner('lap'));
+          } else {
+            alert('Please write 2-3 sentences explaining your response.');
+          }
+          
+        });
+
+        $('#instructions-next').on('click', function() {
+          $('#instructions').hide();
+          $('#experiment').show();
+          getHeadlines(claim_index);
+          logTime('timer_instructions', $('#runner').runner('lap'));
+        });
+
+        
+
+        console.log('HEADLINES: ' + Object.keys(claims).length)
+        var num_headlines = Object.keys(claims).length;
+        // console.log("Percent Complete: " + Math.floor((claim_index / num_headlines) * 100));
+        // $('#progressbar').progressbar({
+        //   value: (Math.floor((claim_index / num_headlines) * 100))
+        // });
+        progressbarValue = $('#progressbar').find( ".ui-progressbar-value" );
+        progressbarValue.css({background: '#bf5700'});
+
+        $('#experiment-next').on('click', function() {
+          if($(':radio:checked').length == $(':radio').length / 2) {
+            if ($("input[id='veracity-" + current_id + "']:checked").val()) {
+              if($("input[id='confidence-" + current_id + "']:checked").val()) {
+                console.log($('#explanation-' + current_id).val());
+                if($.trim($('#explanation-' + current_id).val()).length >= 50) {
+                  //postResults();
+
+                  $('.form-option').css({'background-color': '#f5f5f5', 'border': 'none'});
+
+                  claim_index = claim_index + 1;
+                  
+                  $('.claim-container').animate({
+                    opacity: 0
+                  }, 500, function() {
+                    getHeadlines(claim_index);
+                    // $('#progressbar').progressbar({
+                    //   value: (Math.floor((claim_index / num_headlines) * 100))
+                    // });
+                  });
+
+                  $('.claim-container').animate({
+                      opacity: 1
+                    }, 500);
+                  
+                  logTime(('timer_claim' + current_id), $('#runner').runner('lap'));
+
+                  $('.claim-container').animate({
+                    scrollTop: 0
+                  }, {duration: 1000, queue: false});
+
+                } else { 
+                  alert('Please write at least 1-2 sentences explaining your response');
+                }
+              } else {
+                alert('Please estimate how many people out of 100 would agree with your choice.');
+              }
+            } else {
+              alert('Please select whether you believe the claim is true or false.');
+            }
+          } else {
+            alert('Please select whether you agree with each of the AI\'s predictions.');
+          }
+        });
+
+        
+
+
+      });
+    </script>
+    
+
+  </body>
+  <style type='text/css'>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    #instructions, #experiment, #survey, #initialSurvey {
+      display: none;
+    }
+
+    .consent {
+        width: 100%;
+        height: calc(100vh - 60px);
+        overflow-y: scroll;
+    }
+    .consent-inner {
+        position: relative;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+    }
+    .consent-text {
+        font-size: 18px;
+    }
+    .consent-bold {
+        font-size: 18px;
+        font-weight: 800;
+    }
+    .btn-next {
+        cursor: pointer;
+        width: 80px;
+        height: 40px;
+        background-color: #bf5700;
+        border: 0;
+        color: #fff;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .btn-submit {
+        cursor: pointer;
+        width: 80px;
+        height: 40px;
+        background-color: #bf5700;
+        border: 0;
+        color: #fff;
+        position: relative;
+        left: 50%;
+    }
+    .btn-next-article {
+        cursor: pointer;
+        width: 80px;
+        height: 40px;
+        background-color: #bf5700;
+        border: 0;
+        color: #fff;
+    }
+
+    .initial-instruction {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+    .initial-instructions {
+        width: 100%;
+        height: 100%;
+    }
+    .initial-instructions-inner {
+        margin-top: 75px;
+        height: 90vh;
+        overflow-y: scroll;
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+    .initial-instructions-header {
+        font-size: 24px;
+        font-weight: 600;
+    }
+    .initial-instructions-text {
+        font-size: 18px;
+    }
+
+
+    .instructions {
+        height: 100vh;
+        overflow-y: scroll;
+        background-color: #eee;
+        margin-left: 10px;
+        border-right: 1px solid #333;
+        min-width: 200px;
+    }
+    .instructions-header {
+        font-weight: 600;
+        font-size: 28px;
+    }
+    .instruction {
+        font-size: 16px;
+    }
+    .instructions-outer {
+      height: calc(100vh - 220px); 
+      border: 1px solid #000; 
+      padding: 10px; 
+      overflow-y: scroll; 
+      background-color: #fff;
+    }
+    .instruction-container {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+    .nav-header {
+        line-height: 75px;
+        margin-left: 20px;
+        color: #fff;
+        font-weight: 600;
+    }
+    .nav-shield {
+        height: 75px;
+        margin-left: 20px;
+    }
+    .topnav {
+        /*bf5700*/
+        /*333f48*/
+        height: 75px;
+        width: 100%;
+        background-color: #333f48;
+        z-index: 254;
+    }
+    .claim-container {
+      height: calc(100vh - 75px);
+      overflow-y: scroll;
+    }
+    .claim-inner {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 100%;
+    }
+    .claim-header {
+        font-size: 30px;
+        font-weight: 300;
+    }
+    .claim-subheader {
+        font-weight: 300;
+        font-size: 20px;
+        color: #bf5700;
+    }
+    .form-option {
+        width: 100%;
+        min-width: 85px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        height: 100px;
+        cursor: pointer;
+    }
+    .form-text {
+        display: block;
+        margin-top: -70px;
+        z-index: 250;
+    }
+    .form-option:hover {
+        background-color: #efefef;
+    }
+
+    .claim-question {
+        font-size: 18px;
+    }
+
+    .btn-submit {
+        cursor: pointer;
+        width: 80px;
+        height: 40px;
+        background-color: #bf5700;
+        border: 0;
+        color: #fff;
+    }
+    .checkbox-hidden {
+      position: relative;
+      padding: 0;
+      margin: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.0;
+      z-index: 251;
+      cursor: pointer;
+    }
+    .progress-container {
+      position: fixed;
+      bottom: 0px;
+      left: 5px;
+      z-index: 255;
+      width: 15%;
+      min-width: 175px;
+    }
+    .progress {
+      background: #fff;
+      width: 100%;
+      height: 20px;
+    }
+    .hidden-input {
+      opacity: 0.0;
+    }
+
+    .complete-inner {
+        width: 50%;
+        padding-top: 30px;
+    }
+    .runner {
+      position: fixed;
+      top: 25px;
+      right: 20px;
+      z-index: 255;
+      font-size: 20px;
+      color: #fff;
+    }
+    .shadow {
+      border: 1px solid #333;
+      text-shadow: 0px 1px 2px #000;
+    }
+    .prediction-button-agree {
+      border: 1px solid #28a745 !important;
+      width: 60px;
+      font-size: 10px;
+    }
+    .prediction-button-disagree {
+      border: 1px solid #ffc107 !important;
+      width: 70px;
+      font-size: 10px;
+    }
+    .bias-box {
+      width: 25px;
+      height: 25px;
+      color: #fff;
+      font-weight: 800;
+      display: inline-block;
+      text-align: center;
+      line-height: 25px;
+    }
+  </style>
+
+  </html>
+  
