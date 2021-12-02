@@ -5,7 +5,7 @@
 From your terminal...
 
     1. Clone the repository and navigate to the folder
-        a. git clone https://github.com/anubrata/fcweb-2.git
+        a. git clone https://github.com/utir/fcweb2-py3
         b. cd fcweb-2
     2. Setup your virtual environment, install the packages, and activate it
         a. python3 -m venv venv
